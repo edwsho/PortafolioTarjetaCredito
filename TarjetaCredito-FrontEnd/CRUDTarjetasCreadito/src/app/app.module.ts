@@ -8,6 +8,8 @@ import { HomeComponentComponent } from './Components/home-component/home-compone
 import { CreditCardComponent } from './Components/credit-card/credit-card.component';
 import { ListaTarjetasCreditoComponent } from './Components/lista-tarjetas-credito/lista-tarjetas-credito.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SideBarComponent,
     HomeComponentComponent,
     CreditCardComponent,
-    ListaTarjetasCreditoComponent
+    ListaTarjetasCreditoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

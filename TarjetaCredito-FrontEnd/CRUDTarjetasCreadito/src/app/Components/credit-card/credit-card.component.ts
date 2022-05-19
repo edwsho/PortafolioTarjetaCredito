@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-credit-card',
@@ -16,7 +17,7 @@ export class CreditCardComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
       Nombre:['',  [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
       numeroTarjeta:['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
@@ -36,6 +37,8 @@ export class CreditCardComponent implements OnInit {
       fechaExp: this.form.value["fechaExp"],
       cvv: this.form.value["cvv"] 
     }
+
+    this.toastr.success('Hello world!', 'Toastr fun!');
 
   }
 

@@ -2,10 +2,18 @@
     cursor: pointer;
 }
 
-.green-border{
+.green-icon{
     color: forestgreen;
 }
 
-.red-border{
+.red-icon{
     color: red;
+}
+
+.green-border{
+    border-color: forestgreen;
+}
+
+.red-border{
+    border-color: red;
 }
