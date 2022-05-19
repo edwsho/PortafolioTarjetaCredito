@@ -38,6 +38,8 @@ export class CreditCardComponent implements OnInit {
       cvv: this.form.value["cvv"] 
     }
 
+    console.log(tarjeta);
+
     this.toastr.success('Hello world!', 'Toastr fun!');
 
   }
