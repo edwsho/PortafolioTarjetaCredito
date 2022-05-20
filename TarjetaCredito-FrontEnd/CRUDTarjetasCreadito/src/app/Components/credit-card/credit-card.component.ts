@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { Tarjeta } from 'src/app/Models/tarjeta';
 import { TarjetaCreditoService } from '../../Services/tarjeta-credito.service'
 
@@ -9,13 +11,15 @@ import { TarjetaCreditoService } from '../../Services/tarjeta-credito.service'
   templateUrl: './credit-card.component.html',
   styleUrls: ['./credit-card.component.css']
 })
-export class CreditCardComponent implements OnInit {
+export class CreditCardComponent implements OnInit,OnDestroy {
 
   listTarjetas : Tarjeta;
   idModifTarjeta : number = undefined;
   accion : string = "Agregar";
 
   form: FormGroup;
+
+  subscription : Subscription;
 
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private tarjetaService : TarjetaCreditoService) {
     this.form = this.formBuilder.group({
@@ -27,19 +31,21 @@ export class CreditCardComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getTarjetas();
-  }
-
-  getTarjetas(){
-    this.tarjetaService.getAllTarjetas().subscribe( data => {
+    this.subscription = this.tarjetaService.reciboTarjeta().subscribe( data =>{
       console.log(data);
-      this.listTarjetas = data;
-      this.toastr.info('Consulta de Tarjetas Correctas', 'Consulta!');
-    }, 
-    error => {
-      console.log(error);
-    });
+      this.form.controls["Nombre"].setValue(data.nombre);
+      this.form.controls["numeroTarjeta"].setValue(data.numeroTarjeta)
+      this.form.controls["fechaExp"].setValue(data.fechaExp)
+      this.form.controls["cvv"].setValue(data.cvv);
 
+      this.idModifTarjeta = data.id;
+      
+    });
+  }
+  
+
+  ngOnDestroy() {
+        this.subscription.unsubscribe();
   }
 
   SendData(){
@@ -58,7 +64,7 @@ export class CreditCardComponent implements OnInit {
       this.tarjetaService.modificarTarjeta(this.idModifTarjeta, tarjeta).subscribe( data => {
 
         this.toastr.success('Se Modifico la tarjeta correctamente! ', 'Modificado Exitoso!');
-        this.getTarjetas();
+        this.tarjetaService.getAllTarjetas();
         this.form.reset();
   
       }, error => {
@@ -74,7 +80,7 @@ export class CreditCardComponent implements OnInit {
     this.tarjetaService.GuardarTarjeta(tarjeta).subscribe( data => {
 
       this.toastr.success('Se guardo la tarjeta correctamente! ', 'Guardado Exitoso!');
-      this.getTarjetas();
+      this.tarjetaService.getAllTarjetas();
       this.form.reset();
 
     }, error => {
@@ -92,7 +98,7 @@ export class CreditCardComponent implements OnInit {
     this.tarjetaService.eliminarTarjeta(_tarjetaDelete.id).subscribe( data => {
       
       this.toastr.warning('La tarjeta fue eliminada correctamente!', 'Tarjeta Eliminada!');
-      this.getTarjetas();
+      this.tarjetaService.getAllTarjetas();
     }, 
     error => {
       console.log(error);
@@ -101,16 +107,16 @@ export class CreditCardComponent implements OnInit {
 
   }
 
-  modificarTarjeta(tarjeta:any){
+  // modificarTarjeta(tarjeta:any){
 
-    this.form.controls["Nombre"].setValue(tarjeta.nombre);
-    this.form.controls["numeroTarjeta"].setValue(tarjeta.numeroTarjeta)
-    this.form.controls["fechaExp"].setValue(tarjeta.fechaExp)
-    this.form.controls["cvv"].setValue(tarjeta.cvv);
+  //   this.form.controls["Nombre"].setValue(tarjeta.nombre);
+  //   this.form.controls["numeroTarjeta"].setValue(tarjeta.numeroTarjeta)
+  //   this.form.controls["fechaExp"].setValue(tarjeta.fechaExp)
+  //   this.form.controls["cvv"].setValue(tarjeta.cvv);
 
-    this.idModifTarjeta = tarjeta.id;
-    this.accion = "Modificar"; 
+  //   this.idModifTarjeta = tarjeta.id;
+  //   this.accion = "Modificar"; 
     
-  }
+  // }
 
 }
