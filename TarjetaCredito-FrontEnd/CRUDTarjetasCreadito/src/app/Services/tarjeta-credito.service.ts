@@ -13,8 +13,22 @@ export class TarjetaCreditoService {
 
   constructor(private http: HttpClient) { }
 
+  GuardarTarjeta(tarjeta : Tarjeta) :Observable<Tarjeta>{
+    return this.http.post( this.baseUrl + "api/Tarjeta/PostTarjetas", tarjeta);
+  }
+
   getAllTarjetas() : Observable<Tarjeta>{
     return this.http.get( this.baseUrl + "api/Tarjeta/GetTarjetas");
   }
+
+  eliminarTarjeta(id : number) : Observable<Tarjeta>{
+    console.log(id);
+    return this.http.delete( this.baseUrl + "api/Tarjeta/" + id);
+  }
+
+  modificarTarjeta(id : number, modifTarjeta : Tarjeta) : Observable<Tarjeta>{
+    return this.http.put( this.baseUrl + "api/Tarjeta/" + id, modifTarjeta);
+  }
+
 
 }

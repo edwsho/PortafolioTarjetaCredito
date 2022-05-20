@@ -19,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //services cors
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
 }));
 
 

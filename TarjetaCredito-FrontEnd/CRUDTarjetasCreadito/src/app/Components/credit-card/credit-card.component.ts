@@ -12,6 +12,8 @@ import { TarjetaCreditoService } from '../../Services/tarjeta-credito.service'
 export class CreditCardComponent implements OnInit {
 
   listTarjetas : Tarjeta;
+  idModifTarjeta : number = undefined;
+  accion : string = "Agregar";
 
   form: FormGroup;
 
@@ -32,6 +34,7 @@ export class CreditCardComponent implements OnInit {
     this.tarjetaService.getAllTarjetas().subscribe( data => {
       console.log(data);
       this.listTarjetas = data;
+      this.toastr.info('Consulta de Tarjetas Correctas', 'Consulta!');
     }, 
     error => {
       console.log(error);
@@ -48,10 +51,66 @@ export class CreditCardComponent implements OnInit {
       cvv: this.form.value["cvv"] 
     }
 
+    if(this.idModifTarjeta != undefined){
+
+      tarjeta.id =  this.idModifTarjeta;
+
+      this.tarjetaService.modificarTarjeta(this.idModifTarjeta, tarjeta).subscribe( data => {
+
+        this.toastr.success('Se Modifico la tarjeta correctamente! ', 'Modificado Exitoso!');
+        this.getTarjetas();
+        this.form.reset();
+  
+      }, error => {
+        console.log(error);
+        this.toastr.error('Error al Agregar la tarjeta!', 'Error!');
+      });
+
+
+    } else{
+
     console.log(tarjeta);
 
-    this.toastr.success('Hello world!', 'Toastr fun!');
+    this.tarjetaService.GuardarTarjeta(tarjeta).subscribe( data => {
 
+      this.toastr.success('Se guardo la tarjeta correctamente! ', 'Guardado Exitoso!');
+      this.getTarjetas();
+      this.form.reset();
+
+    }, error => {
+      console.log(error);
+      this.toastr.error('Error al Agregar la tarjeta!', 'Error!');
+    });
+          }
+
+  }
+
+
+  eliminarTarjeta(_tarjetaDelete : Tarjeta){
+    console.log(_tarjetaDelete.id);
+
+    this.tarjetaService.eliminarTarjeta(_tarjetaDelete.id).subscribe( data => {
+      
+      this.toastr.warning('La tarjeta fue eliminada correctamente!', 'Tarjeta Eliminada!');
+      this.getTarjetas();
+    }, 
+    error => {
+      console.log(error);
+      this.toastr.error('Error al eliminar la tarjeta', 'Error');
+    });
+
+  }
+
+  modificarTarjeta(tarjeta:any){
+
+    this.form.controls["Nombre"].setValue(tarjeta.nombre);
+    this.form.controls["numeroTarjeta"].setValue(tarjeta.numeroTarjeta)
+    this.form.controls["fechaExp"].setValue(tarjeta.fechaExp)
+    this.form.controls["cvv"].setValue(tarjeta.cvv);
+
+    this.idModifTarjeta = tarjeta.id;
+    this.accion = "Modificar"; 
+    
   }
 
 }
