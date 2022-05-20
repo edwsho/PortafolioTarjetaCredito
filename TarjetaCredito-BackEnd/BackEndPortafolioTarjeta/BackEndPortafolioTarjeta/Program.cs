@@ -15,6 +15,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                                                     options.UseSqlServer(builder.Configuration["ConnectionStrings:connectionDev"])
                                                     );
 
+//Habilito el CORS
+//services cors
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+}));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corsapp");
 
 app.UseHttpsRedirection();
 

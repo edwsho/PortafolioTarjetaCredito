@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Tarjeta } from 'src/app/Models/tarjeta';
+import { TarjetaCreditoService } from '../../Services/tarjeta-credito.service'
 
 @Component({
   selector: 'app-credit-card',
@@ -9,15 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreditCardComponent implements OnInit {
 
-  listTarjetas : any[] =[
-    { Nombre:"Pedro Aveiro", numeroTarjeta:"123456789", fechaExp: "11/27", cvv:123},
-    { Nombre:"Pedro Aveiro", numeroTarjeta:"123456789", fechaExp: "11/27", cvv:456},
-    { Nombre:"Pedro Aveiro", numeroTarjeta:"123456789", fechaExp: "11/27", cvv:789}
-  ]
+  listTarjetas : Tarjeta;
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private tarjetaService : TarjetaCreditoService) {
     this.form = this.formBuilder.group({
       Nombre:['',  [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
       numeroTarjeta:['', [Validators.required, Validators.minLength(16), Validators.maxLength(16)]],
@@ -27,6 +25,18 @@ export class CreditCardComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getTarjetas();
+  }
+
+  getTarjetas(){
+    this.tarjetaService.getAllTarjetas().subscribe( data => {
+      console.log(data);
+      this.listTarjetas = data;
+    }, 
+    error => {
+      console.log(error);
+    });
+
   }
 
   SendData(){

@@ -1,5 +1,5 @@
 export interface Tarjeta {
-      Nombre?: string
+      nombre?: string
       numeroTarjeta?: string
       fechaExp?: string
       cvv?: number
