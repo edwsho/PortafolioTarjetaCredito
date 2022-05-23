@@ -10,9 +10,9 @@ import { TarjetaCreditoService } from 'src/app/Services/tarjeta-credito.service'
 })
 export class ListaTarjetasCreditoComponent implements OnInit {
 
-  listTarjetas : Tarjeta;
+  listTarjetas : Tarjeta[] ;
 
-  constructor(private toastr: ToastrService, private tarjetaService : TarjetaCreditoService) { }
+  constructor(private toastr: ToastrService, public tarjetaService : TarjetaCreditoService) { }
 
   ngOnInit(): void {
     this.getTarjetas();
@@ -20,7 +20,6 @@ export class ListaTarjetasCreditoComponent implements OnInit {
 
   getTarjetas(){
     this.tarjetaService.getAllTarjetas();
-
   }
 
 

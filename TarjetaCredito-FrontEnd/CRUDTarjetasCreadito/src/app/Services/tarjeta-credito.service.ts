@@ -10,7 +10,7 @@ import { Tarjeta } from '../Models/tarjeta'
 export class TarjetaCreditoService {
 
   private baseUrl =environment.baseUrl;
-  list : Tarjeta[]; 
+  public list : Tarjeta[]; 
 
   //Establezco variable para el envio de informacion de un componente a otro (Lista-tarjetas-credito a CreditCard)
   private _sendInformation = new BehaviorSubject<Tarjeta>({} as any); 
@@ -20,6 +20,11 @@ export class TarjetaCreditoService {
   GuardarTarjeta(tarjeta : Tarjeta) :Observable<Tarjeta>{
     return this.http.post( this.baseUrl + "api/Tarjeta/PostTarjetas", tarjeta);
   }
+
+
+  // getAllTarjetas() :Observable<Tarjeta>{
+  //   return this.http.get( this.baseUrl + "api/Tarjeta/GetTarjetas");
+  // }
 
   getAllTarjetas(){
     this.http.get(this.baseUrl + "api/Tarjeta/GetTarjetas").toPromise()
