@@ -49,6 +49,17 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
 
                 //_creditCardList = _context.TarjetaCredito.ToList();
             }
+
+            catch (NullReferenceException e)
+            {
+                throw new CustomException("Parametros nulos en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (InvalidCastException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
             catch (SqlException e)
             {
                 throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
@@ -95,7 +106,22 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
                 //_RefreshCard.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 //_context.SaveChanges();
             }
-            catch (CustomException e)
+
+            catch (NullReferenceException e)
+            {
+                throw new CustomException("Parametros nulos en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (InvalidCastException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (SqlException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+            catch (Exception e)
             {
                 throw new CustomException("Parametros nulos en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
             }
@@ -134,6 +160,16 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
 
 
                 //return Ok(new { message = "Tarjeta Eliminada con exito!" });
+            }
+
+            catch (NullReferenceException e)
+            {
+                throw new CustomException("Parametros nulos en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (InvalidCastException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
             }
 
             catch (SqlException e)
