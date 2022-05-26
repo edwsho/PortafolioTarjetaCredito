@@ -2,6 +2,7 @@
 using BackEndPortafolioTarjeta.Common.Entities.EntityFactory;
 using BackEndPortafolioTarjeta.Common.Exceptions;
 using BackEndPortafolioTarjeta.Persistence.Interfaces;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,31 +19,45 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
             _context = context;
         }
        */
+
         public DAOUserCreditCard()
         {
         }
 
+        /// <summary>
+		/// Metodo para consultar Todas las entidades UserCreditCard
+		/// </summary>
+		/// <returns></returns>
         public List<Entity> GetAllCreditCards()
         {
             List<Entity> _creditCardList = new List<Entity>();
-            UserCreditCard _Credit;
-
-            _Credit = EntityFactory.CreateEmptyUserCreditCard();
-
+ 
             try
             {
                 Conectar();
-                //_creditCardList = _context.TarjetaCredito.ToList();
+                StoredProcedure("GetAllCreditCards");
+                EjecutarReader();
+
+                for (int i = 0; i < cantidadRegistros; i++)
+                {
+                    UserCreditCard _Credit = EntityFactory.CreateUserCreditCardWithID(GetInt(i, 0), GetString(i, 1), GetString(i, 2), GetString(i, 3), GetString(i, 4));
+                    _creditCardList.Add(_Credit);
+
+
+                }
                 return _creditCardList;
 
-
+                //_creditCardList = _context.TarjetaCredito.ToList();
             }
-            catch (CustomException e)
+            catch (SqlException e)
             {
-                throw new CustomException("Error al Consultar la lista de Tarjetas de Credito");
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
             }
 
-
+            catch (Exception e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
         }
 
 
@@ -61,6 +76,20 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
             try
             {
                 UserCreditCard _creditCard = (UserCreditCard)entidad;
+
+                Conectar();
+
+                StoredProcedure("UpdateUserCreditCard @Id, @Nombre, @NumeroTarjeta, @FechaExp, @Cvv ");
+
+                AgregarParametro("Id", _creditCard.Id);
+                AgregarParametro("Nombre", _creditCard.Nombre);
+                AgregarParametro("NumeroTarjeta", _creditCard.NumeroTarjeta);
+                AgregarParametro("FechaExp", _creditCard.FechaExp);
+                AgregarParametro("Cvv", _creditCard.CVV);
+
+                int _modify = EjecutarQuery();
+
+                //
                 //var _RefreshCard = _context.TarjetaCredito.Attach(_creditCard);
 
                 //_RefreshCard.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -72,10 +101,27 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
             }
         }
 
+
+        /// <summary>
+        /// Metodo para Eliminar una UserCreditCard
+        /// </summary>
+        /// <param name="entidad">Entidad</param>
+        /// <returns></returns>
         public void Delete(Entity entidad)
         {
             try
             {
+
+                Conectar();
+
+                StoredProcedure("DeleteUserCreditCard @Id");
+
+                AgregarParametro("Id", entidad.Id);
+
+                int _delete = EjecutarQuery();
+
+
+
                 //UserCreditCard _creditCard = (UserCreditCard)entidad;
                 //UserCreditCard findTarjeta = (UserCreditCard)_context.TarjetaCredito.Find(_creditCard.Id);
 
@@ -89,6 +135,12 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
 
                 //return Ok(new { message = "Tarjeta Eliminada con exito!" });
             }
+
+            catch (SqlException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
             catch (Exception e)
             {
 
@@ -104,9 +156,23 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
         {
             try
             {
+
                 //UserCreditCard _creditCard = (UserCreditCard)entidad;
                 //_context.Add(_creditCard);
                 //_context.SaveChanges();
+
+                UserCreditCard _credit = (UserCreditCard)entidad;
+
+                Conectar();
+                StoredProcedure("InsertUserCreditCard @Nombre,@NumeroTarjeta,@FechaExp,@Cvv ");
+                AgregarParametro("Nombre", _credit.Nombre);
+                AgregarParametro("NumeroTarjeta", _credit.NumeroTarjeta);
+                AgregarParametro("FechaExp", _credit.FechaExp);
+                AgregarParametro("CVV", _credit.CVV);
+
+                int _Filas = EjecutarQuery();
+
+
 
             }
             catch (NullReferenceException e)
@@ -115,6 +181,16 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO.Interfaces
             }
 
             catch (InvalidCastException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (SqlException e)
+            {
+                throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
+            }
+
+            catch (Exception e)
             {
                 throw new CustomException("Casteo no correcto en: " + GetType().FullName + "." + MethodBase.GetCurrentMethod().Name + ". " + e.Message);
             }

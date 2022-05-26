@@ -33,9 +33,9 @@ export class TarjetaCreditoService {
                                                           })
   }
 
-  eliminarTarjeta(id : number) : Observable<Tarjeta>{
+  eliminarTarjeta(id : Tarjeta) : Observable<Tarjeta>{
     console.log(id);
-    return this.http.delete( this.baseUrl + "api/Tarjeta/" + id);
+    return this.http.put( this.baseUrl + "api/Tarjeta/Delete", id);
   }
 
   modificarTarjeta(id : number, modifTarjeta : Tarjeta) : Observable<Tarjeta>{

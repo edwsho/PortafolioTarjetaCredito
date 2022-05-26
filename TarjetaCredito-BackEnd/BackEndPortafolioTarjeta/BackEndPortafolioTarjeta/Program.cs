@@ -1,4 +1,6 @@
 using BackEndPortafolioTarjeta;
+using BackEndPortafolioTarjeta.Persistence.DAO;
+using BackEndPortafolioTarjeta.Persistence.DAO.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                                                     options.UseSqlServer(builder.Configuration["ConnectionStrings:connectionDev"])
                                                     );
-
+builder.Services.AddScoped<IDAOUserCreditCard, DAOUserCreditCard>();
 //Habilito el CORS
 //services cors
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>

@@ -1,4 +1,5 @@
 ﻿using System;
+using BackEndPortafolioTarjeta.Common.Entities;
 using BackEndPortafolioTarjeta.Models;
 using Microsoft.EntityFrameworkCore;
 

@@ -16,6 +16,16 @@ namespace BackEndPortafolioTarjeta.BusinessLayer.Factory
             return new GetAllUserCreaditCardCommmand();
         }
 
+        public static RefreshUserCreditCardCommand RefreshUserCreditCardCommand(Entity _entity)
+        {
+            return new RefreshUserCreditCardCommand(_entity);
+        }
+
+        public static DeleteUserCreditCardCommand DeleteUserCreditCardCommand(Entity _entity)
+        {
+            return new DeleteUserCreditCardCommand(_entity);
+        }
+
 
 
     }

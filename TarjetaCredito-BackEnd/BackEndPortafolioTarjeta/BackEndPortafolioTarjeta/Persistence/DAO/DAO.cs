@@ -133,7 +133,7 @@ namespace BackEndPortafolioTarjeta.Persistence.DAO
         {
             try
             {
-                _command = new SqlCommand("select * from " + sp, _con);
+                _command = new SqlCommand("EXECUTE " + sp, _con);//new SqlCommand("select * from " + sp, _con);
             }
             catch (SqlException e)
             {

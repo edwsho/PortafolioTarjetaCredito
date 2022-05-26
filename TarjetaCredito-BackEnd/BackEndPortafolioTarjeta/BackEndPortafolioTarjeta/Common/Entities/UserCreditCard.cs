@@ -16,6 +16,11 @@ namespace BackEndPortafolioTarjeta.Common.Entities
 
         }
 
+        public UserCreditCard(int _id)
+        {
+            Id = _id;
+        }
+
         /// <summary>
 		/// Constructor de la Entidad UserCreditCard con todos los atributos
 		/// </summary>
@@ -53,11 +58,6 @@ namespace BackEndPortafolioTarjeta.Common.Entities
 		/// Getters y Setters del atributo _fechaExp
 		/// </summary>
         public string FechaExp { get => _fechaExp; set => _fechaExp = value; }
-
-        public static explicit operator UserCreditCard(EntityEntry<Entity> v)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Getters y Setters del atributo _cvv
