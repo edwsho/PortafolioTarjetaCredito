@@ -26,7 +26,7 @@ export class ListaTarjetasCreditoComponent implements OnInit {
   eliminarTarjeta(_tarjetaDelete : Tarjeta){
     console.log(_tarjetaDelete.id);
 
-    this.tarjetaService.eliminarTarjeta(_tarjetaDelete.id).subscribe( data => {
+    this.tarjetaService.eliminarTarjeta(_tarjetaDelete).subscribe( data => {
       
       this.toastr.warning('La tarjeta fue eliminada correctamente!', 'Tarjeta Eliminada!');
       this.getTarjetas();
