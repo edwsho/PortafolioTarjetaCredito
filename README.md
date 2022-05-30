@@ -11,3 +11,8 @@ Ramas:
 * Hexagonal * => Se implementaron distintos Patrones de Diseno como Factory, Command, DTO, DAO, MAPPERS, entre otros usando ADO.NET
 
 * CA2 * => Se implemento una arquitectura limpia o Hexagonal de los CRUD anteriores.
+
+Imagenes:
+
+![image](https://user-images.githubusercontent.com/38144553/171048655-357a2a23-b7c0-4328-9288-423e7a1b8057.png)
+
