@@ -2,6 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using TarjetaCredito.Application.Services;
+using TarjetaCredito.Domain.DomainObject;
+using TarjetaCredito.Infrastructure;
+using TarjetaCredito.Infrastructure.Repository;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BackEndPortafolioTarjeta.Controllers
@@ -10,14 +15,16 @@ namespace BackEndPortafolioTarjeta.Controllers
     [ApiController]
     public class TarjetaController : ControllerBase
     {
-        //Coloco este atributo private y readonly
-        private readonly ApplicationDbContext _context;
+        
 
-        //Igualo la instanciasion anterior a la nueva declarada
-        public TarjetaController(ApplicationDbContext context)
+        UserCreditCardServices CreateCreditCardService()
         {
-            _context = context;
+            UserCreditCardDbContext _context = new UserCreditCardDbContext();         // Obtengo el Contexto para acceder a la Base de Datos
+            UserCreditCardRepository _repo = new UserCreditCardRepository(_context);  // Intancio el Repositorio con el Contexto, Aca estan los Casos de Uso
+            UserCreditCardServices _services = new UserCreditCardServices(_repo);     // Intancio el Servicio con el repositorio el cual quiero trabajar en este Controller
+            return _services;
         }
+
 
         // GET api/Tarjeta/GetTarjetas
         [HttpGet]
@@ -26,8 +33,8 @@ namespace BackEndPortafolioTarjeta.Controllers
         {
             try
             {
-                var tarjetas = await _context.TarjetaCredito.ToListAsync();
-                return Ok(tarjetas);
+                var _service = CreateCreditCardService();
+                return Ok(_service.List());
 
             }
             catch (Exception e)
@@ -38,22 +45,22 @@ namespace BackEndPortafolioTarjeta.Controllers
         }
 
         // GET api/<TarjetaController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{_id}")]
+        public ActionResult<UserCreditCard> Get(int _id)
         {
-            return "value";
+            var _service = CreateCreditCardService();
+            return Ok(_service.GetbyID(_id));
         }
 
         // POST api/<TarjetaController>
         [HttpPost]
         [Route("PostTarjetas")]
-        public async Task<IActionResult> Post([FromBody] TarjetaCredito _tarjetaEnviada)
+        public async Task<IActionResult> Post([FromBody] UserCreditCard _creditCard)
         {
             try
             {
-                _context.Add(_tarjetaEnviada);
-                await _context.SaveChangesAsync();
-                return Ok(_tarjetaEnviada);
+                var _service = CreateCreditCardService();
+                return Ok(_service.Add(_creditCard));
 
             }
             catch (Exception e)
@@ -66,19 +73,15 @@ namespace BackEndPortafolioTarjeta.Controllers
 
         // PUT api/<TarjetaController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] TarjetaCredito _actTarjeta)
+        public async Task<IActionResult> Put(int id, [FromBody] UserCreditCard _actTarjeta)
         {
 
             try
             {
-                if (id != _actTarjeta.id)
-                {
-                    return NotFound();
-                }
-
-                _context.Update(_actTarjeta);
-                await _context.SaveChangesAsync();
-                return Ok( new {message = "Tarjeta Actualizada!"});
+                var _service = CreateCreditCardService();
+                //_actTarjeta.Id = id;
+                _service.Edit(_actTarjeta);
+                return Ok("Tarjeta con Id: " + _actTarjeta.Id + "Modificada Satisfactoriamente");
 
             }
             catch (Exception e)
@@ -97,14 +100,8 @@ namespace BackEndPortafolioTarjeta.Controllers
 
             try
             {
-                var findTarjeta = await _context.TarjetaCredito.FindAsync(id);
-
-                if (findTarjeta == null)
-                {
-                    return NotFound();
-                }
-                _context.TarjetaCredito.Remove(findTarjeta);
-                await _context.SaveChangesAsync();
+                var _service = CreateCreditCardService();
+                _service.Delete(id);
                 return Ok(new { message = "Tarjeta Eliminada con exito!" });
             }
             catch (Exception e)

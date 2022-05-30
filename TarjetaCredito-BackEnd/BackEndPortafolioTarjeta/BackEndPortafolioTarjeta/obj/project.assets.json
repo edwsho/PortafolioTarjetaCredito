@@ -702,6 +702,44 @@
             "rid": "win"
           }
         }
+      },
+      "TarjetaCredito.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TarjetaCredito.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TarjetaCredito.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TarjetaCredito.Application.dll": {}
+        }
+      },
+      "TarjetaCredito.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/TarjetaCredito.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TarjetaCredito.Domain.dll": {}
+        }
+      },
+      "TarjetaCredito.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.5",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.5",
+          "TarjetaCredito.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TarjetaCredito.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TarjetaCredito.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -2046,6 +2084,21 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "TarjetaCredito.Application/1.0.0": {
+      "type": "project",
+      "path": "../TarjetaCredito.Application/TarjetaCredito.Application.csproj",
+      "msbuildProject": "../TarjetaCredito.Application/TarjetaCredito.Application.csproj"
+    },
+    "TarjetaCredito.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TarjetaCredito.Domain/TarjetaCredito.Domain.csproj",
+      "msbuildProject": "../TarjetaCredito.Domain/TarjetaCredito.Domain.csproj"
+    },
+    "TarjetaCredito.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../TarjetaCredito.Infrastructure/TarjetaCredito.Infrastructure.csproj",
+      "msbuildProject": "../TarjetaCredito.Infrastructure/TarjetaCredito.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2053,7 +2106,10 @@
       "Microsoft.EntityFrameworkCore >= 6.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.5",
-      "Swashbuckle.AspNetCore >= 6.2.3"
+      "Swashbuckle.AspNetCore >= 6.2.3",
+      "TarjetaCredito.Application >= 1.0.0",
+      "TarjetaCredito.Domain >= 1.0.0",
+      "TarjetaCredito.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2082,7 +2138,17 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Application\\TarjetaCredito.Application.csproj": {
+              "projectPath": "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Application\\TarjetaCredito.Application.csproj"
+            },
+            "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Domain\\TarjetaCredito.Domain.csproj": {
+              "projectPath": "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Domain\\TarjetaCredito.Domain.csproj"
+            },
+            "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Infrastructure\\TarjetaCredito.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\EdwardDeNobrega\\Desktop\\ProyectoPortafolio\\TarjetaCredito-BackEnd\\BackEndPortafolioTarjeta\\TarjetaCredito.Infrastructure\\TarjetaCredito.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

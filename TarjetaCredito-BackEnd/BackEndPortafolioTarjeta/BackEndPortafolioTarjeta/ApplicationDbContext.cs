@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackEndPortafolioTarjeta
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext //: DbContext
     {
 
-        public DbSet<TarjetaCredito> TarjetaCredito { get; set; }
+        //public DbSet<TarjetaCredito> TarjetaCredito { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        //{
 
-        }
+        //}
 
 
     }
