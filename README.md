@@ -14,8 +14,9 @@ Ramas:
 
 Imagenes:
 * Front-End *
-![image](https://user-images.githubusercontent.com/38144553/171048824-2daf5239-e420-4293-8054-660da02bc3b3.png)
+![image](https://user-images.githubusercontent.com/38144553/171048984-01cafb10-9e28-4ad3-94a0-f8fe7f0c735b.png)
+
 
 * Back-End Swagger*
-![image](https://user-images.githubusercontent.com/38144553/171048655-357a2a23-b7c0-4328-9288-423e7a1b8057.png)
+![image](https://user-images.githubusercontent.com/38144553/171049016-28074ff9-c2f5-40ec-b323-12a7bdb259f6.png)
 
