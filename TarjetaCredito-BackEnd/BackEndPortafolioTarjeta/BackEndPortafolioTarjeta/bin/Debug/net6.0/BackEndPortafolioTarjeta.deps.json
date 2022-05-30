@@ -11,7 +11,10 @@
           "Microsoft.EntityFrameworkCore": "6.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.5",
-          "Swashbuckle.AspNetCore": "6.2.3"
+          "Swashbuckle.AspNetCore": "6.2.3",
+          "TarjetaCredito.Application": "1.0.0",
+          "TarjetaCredito.Domain": "1.0.0",
+          "TarjetaCredito.Infrastructure": "1.0.0"
         },
         "runtime": {
           "BackEndPortafolioTarjeta.dll": {}
