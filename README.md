@@ -8,4 +8,4 @@ devEdward => Implementacion Basica de net Core con EntityFranework, se reealizo 
 
 Hexagonal => Se implementaron distintos Patrones de Diseno como Factory, Command, DTO, DAO, MAPPERS, entre otros usando ADO.NET
 
-CleanArquitectureHexa => Se implemento una arquitectura limpia o Hexagonal de los CRUD anteriores.
+CA2 => Se implemento una arquitectura limpia o Hexagonal de los CRUD anteriores.
